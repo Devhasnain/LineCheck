@@ -46,6 +46,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  dataEntries DataEntry[]
 }
 
 model VerificationToken {
@@ -55,4 +56,41 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+model Store {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  rating      String
+  products    Product[] // Adding the opposite relation field
+    openingTime  String    // Replace with appropriate time type
+  closingTime  String    // Replace with appropriate time type
+  time DateTime
+  volume String
+  lineQueue Int
+  dataEntries DataEntry[]
+}
+
+model Product {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  store_id            String   @map("store_id") @db.ObjectId
+  name                String   @db.String 
+  productPicturePath  String   @db.String
+  description         String   @db.String 
+  is_active           Boolean  @default(true)
+  stock               Int      @default(0)
+  price               Float    // You can use Float for price, but consider using Decimal for precise currency handling
+  store               Store    @relation(fields: [store_id], references: [id])
+}
+
+
+model DataEntry {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  store_id       String
+  time        DateTime
+  volume      Float
+  persons     Int
+  user        User     @relation(fields: [userId], references: [id])
+  bar         Store      @relation(fields: [store_id], references: [id])
 }
