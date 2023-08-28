@@ -8,8 +8,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const Login = () => {
   const router = useRouter();
-  const [error, setError] = useState<any>({});
-  const [loginUser, setLoginUser] = useState({
+  const [error, setError] = useState<any>('');
+  const [loginUser, setLoginUser] = useState<any>({
     email:'',
     password:''
   });
@@ -21,27 +21,56 @@ const Login = () => {
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
+  // const onSubmit = async () => {
+  //   const { email, password }:any = loginUser;
+  //   // const res = await signIn("credentials", {
+  //   //   email,
+  //   //   password,
+  //   //   redirect: false,
+  //   // });
 
-  const onSubmit = async () => {
-    const { email, password } = loginUser;
+  //   // if (res.error) {
+  //   //   setError("Invalid Credentials");
+  //   //   return;
+  //   // }
+  //   try {
+  //     const { ok, error, url }:any = await signIn("credentials", {
+  //       redirect: Boolean(false),
+  //       email,
+  //       password,
+  //       callbackUrl: callbackUrl || "/",
+  //     });
 
+  //     if (!ok && error === "CredentialsSignin")
+  //       setError({ message: "Bad email or password !" });
+
+  //     if (ok && url) router.push(url);
+  //   } catch (error:any) {
+  //     setError({ message: error.message });
+  //   }
+  
+  // };
+  const onSubmit = async (e:any) => {
+    e.preventDefault();
+const { email,
+  password,} = loginUser
     try {
-      const { ok, error, url }:any = await signIn("credentials", {
-        redirect: Boolean(false),
+      const res:any = await signIn("credentials", {
         email,
         password,
-        callbackUrl: callbackUrl || "/",
+        redirect: false,
       });
+      console.log(res,'reshamza')
+      if (res.error) {
+        setError("Invalid Credentials");
+        return;
+      }
 
-      if (!ok && error === "CredentialsSignin")
-        setError({ message: "Bad email or password !" });
-
-      if (ok && url) router.push(url);
-    } catch (error:any) {
-      setError({ message: error.message });
+      router.replace("dashboard");
+    } catch (error) {
+      console.log(error);
     }
   };
-
   return (
     <div className=" mx-auto my-8 max-w-[1500px]  min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
@@ -49,7 +78,7 @@ const Login = () => {
           <h2 className="mt-4 text-start text-[40px] font-medium font-poppin uppercase text-white">Login</h2>
           <div className="text-start  text-white text-[18px] font-medium font-poppin uppercase text-greentext">New Here? <span className='text-[#4100FA]'>Create an Account</span></div>
         </div>
-        <form className="mt-8 space-y-6" >
+        <form className="mt-8 space-y-6" onSubmit={onSubmit} >
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-white">
                Email
@@ -83,9 +112,10 @@ const Login = () => {
               onChange={handlerChange}
             />
           </div>
+         {error&& <span className='pt-2 text-red-600'>{error}</span>}
           <div className='flex flex-col sm:flex-row gap-2'>
             {/* <Link href="/form" className={` flex items-center justify-center gap-2  sm:w-auto font-poppin bg-btnOrange px-12 text-btntext tracking-normal leading-snug text-btnsize font-large  rounded-sm`}>  */}
-              <Button className="shadow-[0px_1px_24px_0px_#1F51FF99] !rounded-md" onClick={onSubmit}>Signin</Button>
+              <Button className="shadow-[0px_1px_24px_0px_#1F51FF99] !rounded-md" type="submit" >Signin</Button>
             {/* </Link> */}
             
             {/* <Link href="https://localhost/beetlepro.com/admin/login/google"> */}

@@ -3,20 +3,11 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Header'
 import Image from 'next/image'
-import { unstable_getServerSession } from "next-auth/next";
-import UserLoggedIn from '../components/home/UserLoggedIn'
-import UserLoggedOut from '../components/home/UserLoggedOut'
 
 export default async function Home() {
-  const session = await unstable_getServerSession();
   return (
     <main className="bg-[#000000de]">
     <Navbar />
-    {session && session?.user ? (
-        <UserLoggedIn user={session?.user} />
-      ) : (
-        <UserLoggedOut />
-      )}
     <style jsx>{`
       .heading {
         color: white;

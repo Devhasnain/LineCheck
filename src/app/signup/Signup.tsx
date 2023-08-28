@@ -3,14 +3,16 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Button from '@/components/Button'
+import { useRouter } from 'next/navigation'
 
 
 const Signup = () => {
-    const [loginUser, setLoginUser] = useState({
+  const router = useRouter() 
+    const [loginUser, setLoginUser] = useState<any>({
       firstname:'',lastname:'', email:'', password:'',mobile:"", confirmPassword:"" 
     });
   
-    const [error, setError] = useState<any>({});
+    const [error, setError] = useState<any>('');
 
     const handlerChange = (e:any) =>{
       const {value,name} = e.target
@@ -18,24 +20,38 @@ const Signup = () => {
     }
   
    
-    const onSubmit = () => {
-      // Create an user account.
-      fetch("/api/signUp", {
-        body: JSON.stringify(loginUser),
-        headers: { "Content-Type": "application/json" },
+  const handleSubmit = async (e:any) => {
+    const {mobile,firstname,lastname,email,password} = loginUser
+    e.preventDefault();
+
+    if (!mobile||!lastname||!firstname||!email||!password) {
+      setError("All fields are necessary.");
+      return;
+    }
+
+    try {
+      const res = await fetch("api/register", {
         method: "POST",
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            setError({ message: res.error });
-            return null;
-          }
-          alert('ok signulp')
-          // Redirect to `/signin` if ok.
-          // router.push("/signin");
-        });
-    };
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          mobile,lastname,firstname,email,password
+        }),
+      });
+      console.log(res)
+      if (res.ok) {
+        router.push("/");
+      } else {
+        console.log("User registration failed.");
+      }
+    } catch (error) {
+      console.log("Error during registration: ", error);
+    }
+  };
+
+
+
   
   return (
     <div className=" mx-auto my-8 max-w-[1500px]  min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
@@ -122,9 +138,10 @@ const Signup = () => {
             onChange={handlerChange}
           />
         </div>
+        {error&&<span className='pt-2 text-red-600'>{error}</span>}
         <div className='flex flex-col sm:flex-row gap-2'>
           {/* <Link href="/form" className={` flex items-center justify-center gap-2  sm:w-auto font-poppin bg-btnOrange px-12 text-btntext tracking-normal leading-snug text-btnsize font-large  rounded-sm`}>  */}
-            <Button className="shadow-[0px_1px_24px_0px_#1F51FF99] !rounded-md" onClick={onSubmit}>Sign Up</Button>
+            <Button className="shadow-[0px_1px_24px_0px_#1F51FF99] !rounded-md" onClick={handleSubmit}>Sign Up</Button>
           {/* </Link> */}
           
           {/* <Link href="https://localhost/beetlepro.com/admin/login/google"> */}
