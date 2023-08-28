@@ -77,7 +77,7 @@ text-align: left;
     <img src="/waitlist.svg.png" alt="Section Image" className="w-full h-auto" />
   </div>
   <div className="w-full lg:w-1/2 p-8 flex flex-col items-start justify-center">
-    <h2 className="text-3xl text-white font-semibold mb-4 2xl:text-[65px] xl:text-[35px] xl:leading-[40px] lg:text-[34px] md:text-[30px] md:leading-[35px] text-[20px] leading-[25px] 2xl:leading-[70px]">Let people join your club’s guest list from anywhere</h2>
+    <h2 className="text-3xl text-white font-semibold mb-4 2xl:text-[65px] xl:text-[35px] xl:leading-[40px] lg:text-[34px] md:text-[30px] md:leading-[35px] text-[20px] leading-[25px] 2xl:leading-[70px]">Let people join your clubs guest list from anywhere</h2>
     <p className="text-white mb-4  2xl:text-[25px] xl:leading-[25px] xl:text-[18px] lg:leading-[20px] md:leading-[20px] 2xl:leading-[30px] lg:text-[15px]  md:text-[15px] text-[12px] leading-[20px]">
     Bring your clubbing experience into the future by letting guests join a virtual Linecheck from their smart device instead of standing in a physical line in front of your space.
     </p>
@@ -92,8 +92,8 @@ part of the fun</h2>
     <p className="text-white mb-4  2xl:text-[25px] xl:leading-[25px] xl:text-[18px] lg:leading-[20px] md:leading-[20px] 2xl:leading-[30px] lg:text-[15px]  md:text-[15px] text-[12px] leading-[20px]">
     Partner with a local bar, coffee shop or
 restaurant or just let guests do what they like
-while they wait from anywhere. They’ll get a text
-message when it’s their turn to come in.
+while they wait from anywhere. Theyll get a text
+message when its their turn to come in.
     </p>
     <Button className="bg-black text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ">Read More</Button>
   </div>
@@ -110,8 +110,8 @@ message when it’s their turn to come in.
     <p className="text-white mb-4  2xl:text-[25px] xl:leading-[25px] xl:text-[18px] lg:leading-[20px] md:leading-[20px] 2xl:leading-[30px] lg:text-[15px]  md:text-[15px] text-[12px] leading-[20px]">
     Partner with a local bar, coffee shop or
 restaurant or just let guests do what they like
-while they wait from anywhere. They’ll get a text
-message when it’s their turn to come in.
+while they wait from anywhere. Theyll get a text
+message when its their turn to come in.
     </p>
     <Button className="bg-black text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ">Read More</Button>
   </div>
@@ -123,8 +123,8 @@ message when it’s their turn to come in.
     <p className="text-white mb-4  2xl:text-[25px] xl:leading-[25px] xl:text-[18px] lg:leading-[20px] md:leading-[20px] 2xl:leading-[30px] lg:text-[15px]  md:text-[15px] text-[12px] leading-[20px]">
     Partner with a local bar, coffee shop or
 restaurant or just let guests do what they like
-while they wait from anywhere. They’ll get a text
-message when it’s their turn to come in.
+while they wait from anywhere. Theyll get a text
+message when its their turn to come in.
     </p>
     <Button className="bg-black text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] ">Read More</Button>
   </div>

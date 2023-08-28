@@ -32,11 +32,11 @@ const page = () => {
             <div className="">
             <h1>Offers</h1>
             <div className="mt-8 flex items-center gap-1 w-full">
-            {offers&&offers.map((items:any,index:number)=>(
+            {/* {offers&&offers.map((items:any,index:number)=>(
                 <div className="relative h-[200px] w-[320px]  rounded-lg ">
                 <Image src={'/'+items.image}  className='rounded-lg' fill alt=''/>
                 </div>
-            ))}
+            ))} */}
                 </div>
             </div>
             </div>
