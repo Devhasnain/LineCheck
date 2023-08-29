@@ -76,7 +76,11 @@ const { email,
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-4 text-start text-[40px] font-medium font-poppin uppercase text-white">Login</h2>
-          <div className="text-start  text-white text-[18px] font-medium font-poppin uppercase text-greentext">New Here? <span className='text-[#4100FA]'>Create an Account</span></div>
+          <div className="text-start  text-white text-[18px] font-medium font-poppin uppercase text-greentext">New Here? 
+      <Link href="/signup" className=" font-inter">
+          <span className='text-[#4100FA] ml-4 '>Create an Account</span>
+</Link>
+          </div>
         </div>
         <form className="mt-8 space-y-6" onSubmit={onSubmit} >
           <div>
@@ -88,7 +92,7 @@ const { email,
               name="email"
               type="email"
               autoComplete="email"
-              className="mt-1 py-3 px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              className="mt-1 py-3 text-white px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.email}
               onChange={handlerChange}
             />
@@ -98,7 +102,7 @@ const { email,
               <label htmlFor="password" className="block text-sm font-medium text-white">
                  Password
               </label>
-                <label   htmlFor="forgot" className="cursor-pointer block text-sm font-medium text-[#4100FA]">
+                <label   htmlFor="forgot" className="text-white cursor-pointer block text-sm font-medium text-[#4100FA]">
                   Forgot Password?
                 </label>
             </div>
@@ -107,7 +111,7 @@ const { email,
               name="password"
               type="password"
               autoComplete="current-password"
-              className="mt-1 py-3 px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              className="text-white mt-1 py-3 px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.password}
               onChange={handlerChange}
             />
@@ -120,7 +124,7 @@ const { email,
             
             {/* <Link href="https://localhost/beetlepro.com/admin/login/google"> */}
             <button  className='flex items-center justify-center gap-2 px-4 py-2 text-gray-600 bg-gray-300 rounded-md sm:w-auto'>
-              <Image src={'/google-icon 1.svg'} width={20} height={20} alt=''/>
+              <Image src={'/google-icon 1.png'} width={20} height={20} alt=''/>
               Sign in With Google
             </button>
             {/* </Link> */}

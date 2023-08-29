@@ -54,13 +54,16 @@ const Signup = () => {
 
   
   return (
-    <div className=" mx-auto my-8 max-w-[1500px]  min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <div className=" mx-auto mt-8 max-w-[1500px]  min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
     <div className="w-full max-w-md space-y-8">
       <div>
         <h2 className="mt-4 text-start text-[40px] font-medium font-poppin uppercase text-white">sign up</h2>
         <div className="text-start  text-white text-[18px] font-medium font-poppin uppercase text-greentext">
-        Already Member? 
-      <span className='text-[#4100FA]'>Sign in</span></div>
+        Already Member?
+        <Link href="/login">
+      <span className=' text-[#4100FA] ml-4 cursor-pointer'>Sign in</span>
+          </Link> 
+      </div>
       </div>
       <form className="mt-8 space-y-6" >
        <div className="flex gap-4 items-center">
@@ -72,8 +75,8 @@ const Signup = () => {
             id="firstname"
             name="firstname"
             type="text"
-          
-            className="mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block  shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+          placeholder='John'
+            className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block  shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.firstname}
             onChange={handlerChange}
           />
@@ -86,8 +89,8 @@ const Signup = () => {
             id="lastname"
             name="lastname"
             type="text"
-        
-            className="mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+            placeholder='Wick'
+            className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.lastname}
             onChange={handlerChange}
           />
@@ -101,8 +104,9 @@ const Signup = () => {
             id="email"
             name="email"
             type="email"
+            placeholder='johnwick@domainname.com'
             autoComplete="email"
-            className="mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+            className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.email}
             onChange={handlerChange}
           />
@@ -118,7 +122,8 @@ const Signup = () => {
             name="password"
             type="password"
             autoComplete="current-password"
-            className="mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+            placeholder='**************'
+            className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.password}
             onChange={handlerChange}
           />
@@ -133,7 +138,8 @@ const Signup = () => {
             id="mobile"
             name="mobile"
             type="text"
-            className="mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+            placeholder='1 (205) 201-0933'
+            className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.mobile}
             onChange={handlerChange}
           />
@@ -146,7 +152,7 @@ const Signup = () => {
           
           {/* <Link href="https://localhost/beetlepro.com/admin/login/google"> */}
           <button  className='flex items-center justify-center gap-2 px-4 py-2 text-gray-600 bg-gray-300 rounded-md sm:w-auto'>
-            <Image src={'/google-icon 1.svg'} width={20} height={20} alt=''/>
+            <Image src={'/google-icon 1.png'} width={20} height={20} alt=''/>
             Sign up with Google
           </button>
           {/* </Link> */}

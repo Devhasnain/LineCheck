@@ -5,7 +5,7 @@ import Signup from '@/app/signup/Signup'
 
 const page = () => {
   return (
-    <div className='bg-[#000000de]'>
+    <div className='bg-black'>
       <Header/>
         <Signup/>
     </div>

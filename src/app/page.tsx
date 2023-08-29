@@ -4,6 +4,7 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Header'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useContext, useEffect } from 'react'
 
 export default async function Home() {
@@ -59,7 +60,9 @@ text-align: left;
         </div>
         See it in action
       </div>
-      <Button className="w-[120px] h-[50px]">Try it free</Button>
+            <Link href="/home" >
+              <Button  className="w-[120px] h-[50px]">Try it free</Button>
+              </Link>
       <p className="text-gray-300 my-4">No credit card required</p>
     </div>
     <div className="w-full h-[60vh] relative">

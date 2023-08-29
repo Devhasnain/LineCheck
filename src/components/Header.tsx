@@ -7,7 +7,7 @@ import Button from './Button';
 const Navbar = () => {
      
   return (
-    <nav className="w-[80%] mx-auto bg-[#000000de] my-0  p-4 flex items-center justify-between">
+    <nav className="bg-black w-[80%] mx-auto  my-0  p-4 flex items-center justify-between">
         <style jsx>{`
             .paragraph {
           
@@ -23,7 +23,10 @@ const Navbar = () => {
             }
           `}</style>
       <div className="relative h-[80px] w-[80px] mr-4">
+      <Link href="/" className=" font-inter">
         <Image src="/logo.png" fill alt="Logo"  />
+      </Link>
+
       </div>
       <div className="space-x-4 paragraph">
       
@@ -31,8 +34,8 @@ const Navbar = () => {
 
         <Link href="#" className=" font-inter">About us</Link>
         <Link href="#" className=" font-inter">Contact us </Link>
-        <Link href="#" className=" font-inter">Log in</Link>
-        <Link href="#" >
+        <Link href="/login" className=" font-inter">Log in</Link>
+        <Link href="/home" >
             <Button>
             Try it free    
             </Button>

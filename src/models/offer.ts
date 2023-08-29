@@ -10,7 +10,6 @@ const OfferSchema = new mongoose.Schema(
     price: { type: Number, required: true,  },
   },
 );
-
 const Offer = mongoose.models.Offer || mongoose.model("Offer", OfferSchema);
 
 export default Offer;
