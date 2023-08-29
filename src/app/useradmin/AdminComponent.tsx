@@ -1,3 +1,4 @@
+'use client'
 import { CounterContext } from '@/ThemeContext';
 import BarChart from '@/components/BarChart';
 import Image from 'next/image'
