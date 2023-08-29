@@ -1,10 +1,13 @@
 'use client'
+import { CounterContext } from '@/ThemeContext'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Header'
 import Image from 'next/image'
+import { useContext, useEffect } from 'react'
 
 export default async function Home() {
+  
   return (
     <main className="bg-[#000000de]">
     <Navbar />

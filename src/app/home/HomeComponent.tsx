@@ -1,10 +1,10 @@
 'use client'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import ProductDetail from './ProductDetail'
 import BarChart from '@/components/BarChart'
-
+import { CounterContext } from "../../ThemeContext";
 const HomeComponent = () => {
     const [GetId,setId]=useState('')
     const Card = ({id,image,waitTime,title,rating,offers,distance}:any)=>{
@@ -39,8 +39,7 @@ const HomeComponent = () => {
         )
     }
 
-    const [barsWithDistance, setBarsWithDistance] = useState<any>([]);
-    const [offers, setOffers] = useState<any>([]);
+
     const [loading, setLoading] = useState<any>(false);
 
     useEffect(() => {
@@ -50,8 +49,8 @@ const HomeComponent = () => {
             const response = await fetch('/api/home?userLatitude=40.7128&userLongitude=-74.0060');
             const jsonData = await response.json();
             console.log(jsonData,'fetching')
-            setBarsWithDistance(jsonData.data.barsWithDistance);
-            setOffers(jsonData.data.offers);
+            dispatch({ type: "OFFERS",payload: jsonData.data.offers})
+            dispatch({ type: "barsWithDistance",payload:jsonData.data.barsWithDistance})
             setLoading(false)
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -60,14 +59,15 @@ const HomeComponent = () => {
   
       fetchData();
     }, []);
-  
+    const { state, dispatch } = useContext(CounterContext);
+    console.log(state,'state')
     if(loading) return <h1>loading....</h1>
   return (
     <div>{GetId!=''?(
         <div className="w-[90%] mx-auto my-0">
             <ProductDetail id={GetId}/>
             <div className="mt-8 flex items-center gap-1 w-full">
-    {offers&&offers.map((items:any,index:number)=>(
+    {state.offers&&state.offers.map((items:any,index:number)=>(
         <div key={index} className="relative h-[200px] w-[320px]  rounded-lg ">
         <Image src={'/'+items.image}  className='rounded-lg' fill alt=''/>
         </div>
@@ -84,7 +84,7 @@ const HomeComponent = () => {
         </div>
     <div className="w-[90%] mx-auto my-0">
     <div className="flex items-center gap-1 w-full">
-    {offers&&offers.map((items:any,index:number)=>(
+    {state.offers&&state.offers.map((items:any,index:number)=>(
         <div key={index} className="relative h-[200px] w-[320px]  rounded-lg ">
         <Image src={'/'+items.image}  className='rounded-lg' fill alt=''/>
         </div>
@@ -96,7 +96,7 @@ const HomeComponent = () => {
         <p className='text-[#4D7C1B] text-[14px]'>View all (298)</p>
         </div>
         <div className="mt-2 flex gap-4 items-center">
-            {barsWithDistance&&barsWithDistance.map((items:any,index:number)=>(
+            {state.barsWithDistance&&state.barsWithDistance.map((items:any,index:number)=>(
                 <Card key={index} image={items.image} distance={items.distance} id={items._id} waitTime={items.waitTime} offers={items.offers} title={items.title} rating={items.rating}/>
             ))}
         </div>
