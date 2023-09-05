@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.apexcharts-menu-icon{
+    display: none;
+}

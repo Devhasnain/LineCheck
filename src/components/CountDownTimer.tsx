@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import CountDownCard from './CountDownCard';
 import ApexChart from './PieChart';
 
-const CountDownTimer = ({waitTime,lineQueue}:any) => {
+const CountDownTimer = ({waitTime,lineQueue,volume}:any) => {
   //card ref
   const SecondsCardRef:any = useRef(null);
   const MinutesCardRef:any = useRef(null);
@@ -63,15 +63,14 @@ console.log(waitTime,'waitTime')
    
     </div>
     <div className=" w-[200px]">
-    <ApexChart/>
+    <ApexChart volume={volume}/>
     </div>
     <div className="">
     <h1>Line Queue</h1>
     <div className="countdown__container w-[200px]">
     <CountDownCard
-        label="sec"
+        label="Line Queue"
         number={lineQueue}
-     
       />
     </div>
     </div>

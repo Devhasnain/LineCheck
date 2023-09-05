@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const ApexChart = () => {
+const ApexChart = ({volume}:any) => {
+  console.log(volume,'volume')
   const [chartData, setChartData] = useState<any>({
-    series: [44,234],
+    series: [volume,100],
     options: {
-        
-
-        colors: ['#FFFFFF','#FFFFFF'],
+        colors: ['#00000033','#545454'],
       chart: {
         width: 380,
         type: 'donut',
@@ -30,9 +29,12 @@ const ApexChart = () => {
           return val + " - " + opts.w.globals.series[opts.seriesIndex]
         }
       },
-      title: {
-        text: 'Gradient Donut with custom Start-angle'
-      },
+      // title: {
+      //   text: 'Volume',
+      //   style:{
+      //     textalign:'center'
+      //   }
+      // },
       responsive: [{
         breakpoint: 480,
         options: {
@@ -48,11 +50,14 @@ const ApexChart = () => {
   });
 
   return (
-      <Chart
+     <div className="text-center">
+      <h1>Volume</h1>
+       <Chart
         options={chartData.options}
         series={chartData.series}
         type="donut"
       />
+     </div>
   );
 };
 

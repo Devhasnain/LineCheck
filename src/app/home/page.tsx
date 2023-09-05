@@ -1,19 +1,115 @@
 'use client'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header'
+import React, { useContext, useEffect, useState } from 'react'
+import Header3 from '../../components/Header3'
 import ProductDetail from './ProductDetail'
 import BarChart from '@/components/BarChart'
-import HomeComponent from './HomeComponent'
+import { CounterContext } from '@/ThemeContext'
+import ProductDetailGuest from './ProductDetailGuest'
+import Card from '@/components/Card'
 
 const page = () => {
+  const [GetId,setId]=useState('')
   
+  const [loading, setLoading] = useState<any>(false);
+  const [resultFound, setResultFound] = useState<any>(false);
+const [inputSearch,setInputSearch]=useState('')
+const [filteredItems,setFilteredItems]=useState([])
+const {dispatch,state}= useContext(CounterContext);
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true)
+      try {
+          var myHeaders = new Headers();
+myHeaders.append("Accept", "application/json");
+myHeaders.append("Content-Type", "application/json");
+
+
+var requestOptions:any = {
+method: 'GET',
+headers: myHeaders,
+redirect: 'follow'
+};
+
+fetch("http://127.0.0.1:8000/api/allbars", requestOptions)
+.then(response => response.json())
+.then((result) =>{
+    console.log(result)
+    dispatch({ type: "OFFERS",payload: result.data.offers})
+    dispatch({ type: "barsWithDistance",payload:result.data.bars})
+    setFilteredItems(result.data.bars)
+    setLoading(false)
+})
+.catch(error => console.log('error', error));
+          
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+ 
+  if(loading) return <h1>loading....</h1>
+  const applyFilters = (value:any) => {
+    setInputSearch(value)
+    let updatedList = filteredItems;
+    // search Filter
+      updatedList = updatedList.filter(
+        (items:any) =>
+          items.title.toLowerCase().search(value.toLowerCase().trim()) !==
+          -1
+      );
+  
+    setFilteredItems(updatedList);
+    !updatedList.length ? setResultFound(false) : setResultFound(true);
+  };
   return (
-   
    <div className="">
-     <Header/>
-    <HomeComponent/>
-   
+     <Header3 applyFilters={applyFilters} inputSearch={inputSearch}/>
+     <div>{GetId!=''?(
+        <div className="w-[90%] mx-auto my-0">
+            {/* <ProductDetail id={GetId}/> */}
+            <ProductDetailGuest id={GetId}/>
+            {/* <div className="mt-8 flex items-center gap-1 w-full">
+    {state.offers&&state.offers.map((items:any,index:number)=>(
+        <div key={index} className="relative h-[200px] w-[320px]  rounded-lg ">
+        <Image src={items.image}  className='rounded-lg' fill alt=''/>
+        </div>
+    ))}
+    </div> */}
+        </div>
+    ):(
+    <div className="mt-4">
+        {/* <div className="flex justify-center items-center mb-8">
+            <div className="flex gap-2 relative rounded-md p-2 w-[500px] h-[45px] bg-[#E8EBEB]">
+        <Image src={'/search.png'}  className='rounded-lg ' width={20} height={20} alt=''/>
+                <input type="text"  value={inputSearch}
+        onChange={(e) =>applyFilters(e.target.value)} className='bg-[#E8EBEB] w-full h-full px-2' placeholder='Search Popeyes Louisiana Kitchen' />
+            </div>
+        </div> */}
+    <div className="w-[90%] mx-auto my-0">
+    <div className="flex items-center gap-1 w-full">
+    {state.offers&&state.offers.map((items:any,index:number)=>(
+        <div key={index} className="relative h-[200px] w-[320px]  rounded-lg ">
+        <Image src={items.image}  className='rounded-lg' fill alt=''/>
+        </div>
+    ))}
+    </div>
+     <div className="mt-8">
+        <div className="flex items-center gap-4">
+        <h1 className='text-[25px] font-bold'>Offers near you</h1>
+        <p className='text-[#4D7C1B] text-[14px]'>View all (298)</p>
+        </div>
+        <div className="mt-2 flex gap-4 items-center">
+            {filteredItems&&filteredItems.map((items:any,index:number)=>(
+                <Card key={index} image={items.image}  id={items.bar_id} waitTime={items.waitTime} offers={items.offers} title={items.title} rating={items.rating}/>
+            ))}
+        </div>
+    </div>
+   </div>
+    </div>
+    )}</div>
     {/* <BarChart/> */}
    </div>
   )

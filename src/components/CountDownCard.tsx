@@ -9,7 +9,6 @@ const CountDownSquare = ({ label, number, cardRef }:any) => {
           {number}
         </div>
       </div>
-      <div className="countdown__card__label">{label}</div>
     </div>
   );
 };

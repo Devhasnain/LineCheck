@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 
 const Calendar = () => {
   function renderEventContent(eventInfo:any) {
+    console.log('titleayega',eventInfo.event._def)
     return (
            <div className="">
             {/* <div>
@@ -37,6 +38,24 @@ const Calendar = () => {
     // }
     alert('ok')
   };
+  const [AllDates,setDates]=useState([])
+  useLayoutEffect(()=>{
+    const fect=()=>{
+      var requestOptions:any = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch(`http://127.0.0.1:8000/api/barsDates/${2}`, requestOptions)
+        .then(response => response.json())
+        .then((result) => {
+          setDates(result.data)
+          console.log(result)})
+        .catch(error => console.log('error', error));
+    }
+    fect()
+  },[])
+  console.log('AllDates',AllDates)
   return (
     <div>
          <FullCalendar
@@ -48,70 +67,28 @@ const Calendar = () => {
             center: 'title',
             right: 'dayGridMonth'
           }}
-          nowIndicator={true}
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          events={[
-            {
-              title: 'All Day Event',
-              start: '2023-07-01'
-            },
-            {
-              title: 'Long Event',
-              start: '2023-07-07',
-              end: '2023-07-10',
-              color: 'purple' // override!
-            },
-            {
-              groupId: '999',
-              title: 'Repeating Event',
-              start: '2023-07-09T16:00:00'
-            },
-            {
-              groupId: '999',
-              title: 'Repeating Event',
-              start: '2023-07-16T16:00:00'
-            },
-            {
-              title: 'Conference',
-              start: '2023-07-11',
-              end: '2023-07-13',
-              color: 'purple' // override!
-            },
-            {
-              title: 'Meeting',
-              start: '2023-07-12T10:30:00',
-              end: '2023-07-12T12:30:00'
-            },
-            {
-              title: 'Lunch',
-              start: '2023-07-12T12:00:00'
-            },
-            {
-              title: 'Meeting',
-              start: '2023-07-12T14:30:00'
-            },
-            {
-              title: 'Birthday Party',
-              start: '2023-07-13T07:00:00'
-            },
-            {
-              title: 'Click for Google',
-              url: 'https://google.com/',
-              start: '2023-07-28'
-            }
-          ]}
-          eventContent={renderEventContent} 
-          eventClick={handleEventClick}
-          // resources={[
-          //   { id: 'a', title: 'Auditorium A' },
-          //   { id: 'b', title: 'Auditorium B', eventColor: 'green' },
-          //   { id: 'c', title: 'Auditorium C', eventColor: 'orange' },
+          // nowIndicator={true}
+          // editable={true}
+          // selectable={true}
+          // selectMirror={true}
+          events={AllDates}
+          // events={[
+          //   {
+          //     title: 'All Day Event',
+          //     start: '2023-09-01'
+          //   },
+          //   {
+          //     title: 'one Day Event',
+          //     start: '2023-09-02'
+          //   },
+           
           // ]}
-          initialEvents={[
-            { title: 'nice event', start: new Date(), resourceId: 'a' }
-          ]}
+          eventContent={renderEventContent} 
+          // eventClick={handleEventClick}
+          // initialEvents={[
+          //   // { title: 'nice event', start: new Date(), resourceId: 'a' },
+          //   { title: 'event 1', end: '2023-09-03' },
+          // ]}
         />
     </div>
   )

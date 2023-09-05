@@ -1,10 +1,11 @@
 "use client"; // This is a client component 👈🏽
-import React, { ChangeEvent, FormEvent, useState,useEffect } from 'react';
+import React, { ChangeEvent, FormEvent, useState,useEffect, useContext } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '@/components/Button';
 import { useRouter, useSearchParams } from "next/navigation";
+import { CounterContext } from '@/ThemeContext';
 
 const Login = () => {
   const router = useRouter();
@@ -21,6 +22,8 @@ const Login = () => {
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
+  const {state,dispatch} = useContext(CounterContext)
+
   // const onSubmit = async () => {
   //   const { email, password }:any = loginUser;
   //   // const res = await signIn("credentials", {
@@ -52,34 +55,54 @@ const Login = () => {
   // };
   const onSubmit = async (e:any) => {
     e.preventDefault();
-const { email,
-  password,} = loginUser
-    try {
-      const res:any = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-      console.log(res,'reshamza')
-      if (res.error) {
-        setError("Invalid Credentials");
-        return;
-      }
 
-      router.replace("dashboard");
+    try {
+      const {
+        email,password
+      } = loginUser;
+      var myHeaders = new Headers();
+myHeaders.append("Accept", "application/json");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  email,password
+});
+
+var requestOptions:any = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://127.0.0.1:8000/api/user-login", requestOptions)
+  .then(response => response.json())
+  .then((result) =>{
+    if (result.error) {
+      setError("Invalid Credentials");
+      return;
+    }
+if(result.status){
+  dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
+  router.replace("home");
+}
+    
+    console.log(result)})
+  .catch(error => console.log('error', error));
     } catch (error) {
       console.log(error);
     }
   };
+console.log(state,'state')
   return (
-    <div className=" mx-auto my-8 max-w-[1500px]  min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <div className=" mx-auto mt-8 max-w-[1500px]  min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-4 text-start text-[40px] font-medium font-poppin uppercase text-white">Login</h2>
           <div className="text-start  text-white text-[18px] font-medium font-poppin uppercase text-greentext">New Here? 
-      <Link href="/signup" className=" font-inter">
+      <Link href="/signup" className="font-inter">
           <span className='text-[#4100FA] ml-4 '>Create an Account</span>
-</Link>
+      </Link>
           </div>
         </div>
         <form className="mt-8 space-y-6" onSubmit={onSubmit} >
@@ -92,7 +115,7 @@ const { email,
               name="email"
               type="email"
               autoComplete="email"
-              className="mt-1 py-3 text-white px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              className="mt-1 py-3  px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.email}
               onChange={handlerChange}
             />
@@ -111,7 +134,7 @@ const { email,
               name="password"
               type="password"
               autoComplete="current-password"
-              className="text-white mt-1 py-3 px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              className=" mt-1 py-3 px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.password}
               onChange={handlerChange}
             />

@@ -1,12 +1,12 @@
-import Header from '@/components/Header'
 import React from 'react'
 import Signup from '@/app/signup/Signup'
+import Header1 from '@/components/Header1'
 
 
 const page = () => {
   return (
     <div className='bg-black'>
-      <Header/>
+       <Header1/>
         <Signup/>
     </div>
   )

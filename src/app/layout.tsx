@@ -1,4 +1,3 @@
-import Authprovider from '@/components/Authprovider'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Poppins,Inter } from 'next/font/google'
@@ -18,11 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={Poppin.className}>
-      <Authprovider>
         <ContextProvider>
         {children}
         </ContextProvider>
-        </Authprovider>
         </body>
     </html>
   )

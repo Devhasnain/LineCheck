@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import Button from './Button';
 
-const Header = () => {
+const Header1 = () => {
      
   return (
     <nav className="bg-black w-[80%] mx-auto  my-0  p-4 flex items-center justify-between">
@@ -22,26 +22,17 @@ const Header = () => {
                
             }
           `}</style>
-      <div className="relative h-[80px] w-[80px] mr-4">
+      <div className="relative h-[30px] w-[200px] mr-4">
       <Link href="/" className=" font-inter">
-        <Image src="/logo.png" fill alt="Logo"  />
+        <Image src="/logo1.png" fill alt="Logo"  />
       </Link>
-
       </div>
       <div className="space-x-4 paragraph flex items-center">
         <Link href="/aboutus" className=" font-inter">About us</Link>
         <Link href="/contactus" className=" font-inter">Contact us </Link>
-        <Link href="/login" className="flex items-center gap-1 font-inter">
-          <Image src={'/lock.png'} width={15} height={15} alt=''/>
-          Log in</Link>
-        <Link href="/home" >
-            <Button>
-            Try it free    
-            </Button>
-            </Link>
       </div>
     </nav>
   );
 };
 
-export default Header;
+export default Header1;

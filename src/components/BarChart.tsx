@@ -2,12 +2,53 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 import Chart from "react-apexcharts";
 
-const BarChart = () => {
+const BarChart = ({Bards}:any) => {
   const colors =['#ffff']
+  const [selectedOption, setSelectedOption] = useState('queue'); // Initial selected option
+  
+  const data = [
+    { created_at: '2023-09-04T23:09:30.000000Z', value: '423.00' },
+    { created_at: '2023-09-04T23:09:30.000000Z', value: '423.00' },
+    { created_at: '2023-09-05T23:09:30.000000Z', value: '300.00' },
+    // ... more data ...
+  ];
+  const groupedData = Bards.reduce((accumulator:any, item:any) => {
+    const date = new Date(item.created_at).toLocaleDateString();
+    if (!accumulator[date]) {
+      accumulator[date] = [];
+    }
+    accumulator[date].push({
+      waittime: item.waittime,
+      volume: item.volume,
+      queue: item.queue,
+    });
+   console.log(accumulator,'accumulator')
+    return accumulator;
+  }, {});
+  const summarizedData = Object.keys(groupedData).map((date) => ({
+    date,
+    sum: groupedData[date].reduce((acc:any, item:any) => acc + parseInt(item[selectedOption]), 0),
+  }));
+ 
+  const options = {
+    xaxis: {
+      categories: summarizedData.map((item) => item.date),
+    },
+    
+    // ... other chart options ...
+  };
+  
+  const series = [
+    {
+      name: selectedOption,
+      data: summarizedData.map((item) => item.sum),
+    },
+  ];
+ 
+ 
     const [chartData, setChartData] = useState<any>({
-        series: [{
-          data: [200, 300, 400, 500, 600, 700, 800,900]
-        }],
+        series: series,
+        toolbar: { show:false },
         // dataLabels: {
         //   enabled: true,
         //   enabledOnSeries: undefined,
@@ -49,18 +90,9 @@ const BarChart = () => {
         //       color: '#000',
         //       opacity: 0.45
         //   }
+        options
         // },
-        options: {
-          chart: {
-        
-            height: 350,
-            type: 'bar',
-            events: {
-              click: function(chart:any, w:any, e:any) {
-                // console.log(chart, w, e)
-              }
-            }
-          },
+        ,
           colors: ['#B6BCF8','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'],
           
   plotOptions: {
@@ -115,7 +147,7 @@ const BarChart = () => {
           legend: {
             show: false
           },
-          
+         
   yaxis: {
     show: true,
     // showAlways: true,
@@ -178,43 +210,57 @@ const BarChart = () => {
 }
 
 ,
-          xaxis: {
-            categories: [
-              ['Mon', '423.00'],
-              ['Mon', '423.00'],
-              ['Mon', '423.00'],
-              ['Mon', '423.00'],
-              ['Mon', '423.00'],
-              ['Mon', '423.00'],
-              ['Mon', '423.00'],
-            ],
-            labels: {
-              style: {
-                colors: ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'],
-                fontSize: '12px'
-              }
-            }
-          }
-        },
-      });
-      <Chart
-      options={chartData.options}
-      series={chartData.series}
-      type="bar"
-    />
+       
+        })
+        function CustomDropdown() {
+          const [isOpen, setIsOpen] = useState(false);
+          const options = ['queue', 'waittime', 'volume']; // Add your dropdown options here
+          const toggleDropdown = () => {
+            setIsOpen(!isOpen);
+          };
+          const selectOption = (option:any) => {
+            setSelectedOption(option);
+            setIsOpen(false);
+          };
+
+          return (
+            <div className="relative inline-block">
+              <div
+                className="flex text-[12px] text-white items-center gap-1 bg-[#34383B] p-2 rounded-2xl cursor-pointer"
+                onClick={toggleDropdown}
+              >
+                {selectedOption}
+                <img src="/icons (2).png" height={10} width={10} alt="" />
+              </div>
+        
+              {isOpen && (
+                <ul className="absolute mt-2 py-1 z-30 w-32 bg-[#34383B] text-[12px] text-white rounded-2xl shadow">
+                  {options.map((option) => (
+                    <li
+                      key={option}
+                      className={`px-2 py-1 cursor-pointer ${
+                        selectedOption === option ? 'bg-blue-500 rounded-2xl' : ''
+                      }`}
+                      onClick={() => selectOption(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        }
   return (
     <div className="p-4 rounded-3xl bg-[linear-gradient(183.65deg,#4100FA_3%,rgba(178,183,231,0.38)107%)]">
       <div className="w-full flex justify-between items-center my-4">
         <h1 className=' text-white text-[20px] font-bold'>Overview</h1>
-        <div className="flex text-[12px] text-white items-center gap-1 bg-[#34383B] p-2 rounded-2xl">
-        <Image src={'/calendar.png'} height={15} width={15} alt=''/>
-        Week
-        <Image src={'/icons (2).png'} height={10} width={10} alt=''/>
-        </div>
+       
+       <CustomDropdown/>
       </div>
       <Chart
-        options={chartData.options}
-        series={chartData.series}
+        options={options}
+        series={series}
         type="bar"
       />
     </div>

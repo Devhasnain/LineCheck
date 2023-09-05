@@ -1,15 +1,15 @@
 'use client'
-import Header from '@/components/Header'
 import Login from '@/app/login/Login'
 import React from 'react'
 import { redirect } from 'next/navigation'
+import Header1 from '@/components/Header1'
 
 const page = () => {
   
     
   return (
     <div className='bg-[#000000de]'>
-      <Header/>
+      <Header1/>
         <Login/>
     </div>
   )

@@ -1,13 +1,16 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
+import { CounterContext } from '@/ThemeContext'
 
 
 const Signup = () => {
   const router = useRouter() 
+
+  const {dispatch,state} = useContext(CounterContext);
     const [loginUser, setLoginUser] = useState<any>({
       firstname:'',lastname:'', email:'', password:'',mobile:"", confirmPassword:"" 
     });
@@ -30,21 +33,36 @@ const Signup = () => {
     }
 
     try {
-      const res = await fetch("api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mobile,lastname,firstname,email,password
-        }),
-      });
-      console.log(res)
-      if (res.ok) {
-        router.push("/");
-      } else {
-        console.log("User registration failed.");
-      }
+      var myHeaders = new Headers();
+myHeaders.append("Accept", "application/json");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "role_type": "2",
+  "signup_type": "Email",
+  mobile,lastname,firstname,email,password
+})
+
+var requestOptions:any = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://127.0.0.1:8000/api/user-register", requestOptions)
+  .then(response => response.json())
+  .then((result) =>{
+    if (result.error) {
+      console.log("User registration failed.");
+      return
+    } 
+    if(result.status){
+      dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
+      router.replace("home");
+    }
+    console.log(result)})
+  .catch(error => console.log('error', error));
     } catch (error) {
       console.log("Error during registration: ", error);
     }

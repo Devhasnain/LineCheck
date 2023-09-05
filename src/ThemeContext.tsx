@@ -4,6 +4,7 @@ import React, { Dispatch, createContext, useReducer } from "react";
 type StateType = {
   offers: Array<any>;
   barsWithDistance: Array<any>;
+  user:any;
 };
 
 type ActionType = {
@@ -13,7 +14,8 @@ type ActionType = {
 
 const initialState: StateType = {
   offers: [],
-  barsWithDistance:[]
+  barsWithDistance:[],
+  user:{},
 };
 
 const reducer = (state: StateType, action: ActionType) => {
@@ -22,6 +24,8 @@ const reducer = (state: StateType, action: ActionType) => {
       return { ...state, offers: action.payload };
     case "barsWithDistance":
       return { ...state, barsWithDistance: action.payload };
+    case "USER":
+      return { ...state, user: action.payload };
     default:
       return state;
   }
