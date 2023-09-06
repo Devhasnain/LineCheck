@@ -6,7 +6,7 @@ import ApexChart from '@/components/PieChart';
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 
-const ProductDetail = ({ id }: any) => {
+const ProductDetail = ({ id,setId }: any) => {
     const [loading, setLoading] = useState<any>(false);
     const [data, setData] = useState<any>([]);
 
@@ -34,7 +34,7 @@ const ProductDetail = ({ id }: any) => {
                     headers: myHeaders,
                     redirect: 'follow'
                 };
-                fetch(`http://localhost:8000/api/offers/${id}`, requestOptions)
+                fetch(`${baseRoute}offers/${id}`, requestOptions)
                     .then(response => response.json())
                     .then((result) => {
                         setOffers(result.data)
@@ -47,7 +47,7 @@ const ProductDetail = ({ id }: any) => {
                       headers: myHeaders,
                       redirect: 'follow'
                     };
-                    fetch(`http://localhost:8000/api/bartimmings/id/${1}`, requestOptions)
+                    fetch(`${baseRoute}bartimmings/id/${1}`, requestOptions)
                       .then(response => response.json())
                       .then((result) => {
                         setWaitTime(timeToDecimal(result.data[0].waittime))
@@ -121,7 +121,7 @@ var requestOptions:any = {
   redirect: 'follow'
 };
 
-fetch(`http://localhost:8000/api/bartimmings/update/2/${id}`, requestOptions)
+fetch(`${baseRoute}bartimmings/update/2/${id}`, requestOptions)
   .then(response => response.json())
   .then(result =>{
     alert('update successfully')
@@ -146,7 +146,7 @@ var requestOptions:any = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:8000/api/bartimmings", requestOptions)
+fetch(`${baseRoute}bartimmings`, requestOptions)
   .then(response => response.json())
   .then((result) =>{
     console.log(result)})
@@ -175,7 +175,7 @@ function minutesToHHMM(seconds:any) {
     return (
         <div className="w-[90%] mx-auto my-0">
             <div className="h-[50px] mt-8">
-                <h1>Back</h1>
+                <h1 onClick={()=>setId('')}>Back</h1>
             </div>
             <div className='flex gap-2 '>
                 <div className="relative h-[300px] w-[300px] rounded-lg ">

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Card = ({id,image,waitTime,title,rating,offers,setId}:any)=>{
     return(
-        <div key={id} className='shadow-[0px_1px_4px_0px_#00000014] relative w-[250px] rounded-lg' onClick={()=>setId(id)}>
+        <div key={id} className='cursor-pointer shadow-[0px_1px_4px_0px_#00000014] relative w-[250px] rounded-lg' onClick={()=>setId(id)}>
             <div className={`flex flex-col items-start  absolute top-${2} z-10 left-2`}>
           {/* {offers.map((offerItem:any,index:number)=>(
           <span key={index} className={`p-1 ${index==0?'bg-white text-red-600':'bg-red-600 text-white'}`}>

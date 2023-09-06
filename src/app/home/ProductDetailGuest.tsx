@@ -3,10 +3,11 @@ import Calendar from '@/components/Calendar';
 import Card from '@/components/Card';
 import CountDownTimer from '@/components/CountDownTimer';
 import ApexChart from '@/components/PieChart';
+import { baseRoute } from '@/utils/route';
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 
-const ProductDetailGuest = ({ id }: any) => {
+const ProductDetailGuest = ({ id,setId }: any) => {
     const [loading, setLoading] = useState<any>(false);
     const [data, setData] = useState<any>([]);
     const {state,dispatch} = useContext(CounterContext)
@@ -23,7 +24,7 @@ useEffect(() => {
                 headers: myHeaders,
                 redirect: 'follow'
             };
-            fetch(`http://localhost:8000/api/offers/${id}`, requestOptions)
+            fetch(`${baseRoute}offers/${id}`, requestOptions)
                 .then(response => response.json())
                 .then((result) => {
                     setOffers(result.data)
@@ -52,7 +53,7 @@ useEffect(() => {
     return (
         <div className="w-[90%] mx-auto my-0">
             <div className="h-[50px] mt-8">
-                <h1>Back</h1>
+                <h1 className='' onClick={()=>setId('')}>Back</h1>
             </div>
             <div className='flex gap-2 '>
                 <div className="relative h-[300px] w-[300px] rounded-lg ">

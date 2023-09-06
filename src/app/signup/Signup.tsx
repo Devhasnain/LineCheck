@@ -59,6 +59,7 @@ fetch("http://127.0.0.1:8000/api/user-register", requestOptions)
     } 
     if(result.status){
       dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
+      localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
       router.replace("home");
     }
     console.log(result)})

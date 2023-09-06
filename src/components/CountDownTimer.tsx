@@ -22,12 +22,12 @@ console.log(waitTime,'waitTime')
     if (seconds > 0) {
       setTimeout(() => {
         setSeconds(seconds - 1);
-        SecondsCardRef.current.classList.toggle('rotate');
+        // SecondsCardRef.current.classList.toggle('rotate');
       }, 1000);
     }
     if (seconds === 0 && minutes > 0) {
       setMinutes(minutes - 1);
-      MinutesCardRef.current.classList.toggle('rotate');
+      // MinutesCardRef.current.classList.toggle('rotate');
     }
   }, [seconds, minutes]);
   // useEffect(() => {

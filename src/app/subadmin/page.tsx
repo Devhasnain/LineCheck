@@ -3,6 +3,7 @@ import { CounterContext } from '@/ThemeContext';
 import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import BarChart from '@/components/BarChart';
+import { baseRoute } from '@/utils/route';
 
 const page = () => {
     const { state, dispatch } = useContext(CounterContext);
@@ -22,7 +23,7 @@ const page = () => {
                     redirect: 'follow'
                 };
 
-                fetch(`http://localhost:8000/api/offers/${1}`, requestOptions)
+                fetch(`${baseRoute}offers/${1}`, requestOptions)
                     .then(response => response.json())
                     .then((result) => {
       dispatch({ type: "OFFERS",payload: result.data})
@@ -31,7 +32,7 @@ const page = () => {
                     .catch(error => console.log('error', error));
 
 
-fetch("http://localhost:8000/api/bartimmings/1", requestOptions)
+fetch(`${baseRoute}bartimmings/1`, requestOptions)
   .then(response => response.json())
   .then((result) =>{
 

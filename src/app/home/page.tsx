@@ -16,6 +16,18 @@ const page = () => {
 const [inputSearch,setInputSearch]=useState('')
 const [filteredItems,setFilteredItems]=useState([])
 const {dispatch,state}= useContext(CounterContext);
+const [checkAuth,setCheckAuth] = useState(false)
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    let token:any = JSON.parse(localStorage.getItem('token')as any);
+if (token) {
+  setCheckAuth(true)
+}
+  } else {
+    console.log('You are on the server')
+  }
+}, [])
+
   useEffect(() => {
     async function fetchData() {
       setLoading(true)
@@ -64,13 +76,14 @@ fetch("http://127.0.0.1:8000/api/allbars", requestOptions)
     setFilteredItems(updatedList);
     !updatedList.length ? setResultFound(false) : setResultFound(true);
   };
+ 
   return (
    <div className="">
      <Header3 applyFilters={applyFilters} inputSearch={inputSearch}/>
      <div>{GetId!=''?(
         <div className="w-[90%] mx-auto my-0">
-            {/* <ProductDetail id={GetId}/> */}
-            <ProductDetailGuest id={GetId}/>
+            
+           {!checkAuth?<ProductDetailGuest id={GetId} setId={setId} />:<ProductDetail setId={setId} id={GetId}/>}
             {/* <div className="mt-8 flex items-center gap-1 w-full">
     {state.offers&&state.offers.map((items:any,index:number)=>(
         <div key={index} className="relative h-[200px] w-[320px]  rounded-lg ">
@@ -103,7 +116,7 @@ fetch("http://127.0.0.1:8000/api/allbars", requestOptions)
         </div>
         <div className="mt-2 flex gap-4 items-center">
             {filteredItems&&filteredItems.map((items:any,index:number)=>(
-                <Card key={index} image={items.image}  id={items.bar_id} waitTime={items.waitTime} offers={items.offers} title={items.title} rating={items.rating}/>
+                <Card key={index} setId={setId} image={items.image}  id={items.bar_id} waitTime={items.waitTime} offers={items.offers} title={items.title} rating={items.rating}/>
             ))}
         </div>
     </div>
