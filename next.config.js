@@ -11,7 +11,7 @@ const nextConfig = {
       // domains: ['majesticowls.com'], 
     },
     reactStrictMode: true,
-  
+    output: 'export',
 }
 
 module.exports = nextConfig

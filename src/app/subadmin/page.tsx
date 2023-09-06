@@ -1,6 +1,6 @@
 'use client'
-import { CounterContext } from '@/ThemeContext';
 import React, { useContext, useEffect, useState } from 'react'
+import { CounterContext } from '@/ThemeContext';
 import Image from 'next/image'
 import BarChart from '@/components/BarChart';
 import { baseRoute } from '@/utils/route';

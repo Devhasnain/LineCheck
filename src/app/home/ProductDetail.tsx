@@ -3,6 +3,7 @@ import Calendar from '@/components/Calendar';
 import Card from '@/components/Card';
 import CountDownTimer from '@/components/CountDownTimer';
 import ApexChart from '@/components/PieChart';
+import { baseRoute } from '@/utils/route';
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 
