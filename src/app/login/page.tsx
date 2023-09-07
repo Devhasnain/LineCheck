@@ -1,5 +1,5 @@
 'use client'
-import Login from '@/app/login/Login'
+import Login from '@/components/Login'
 import React from 'react'
 import { redirect } from 'next/navigation'
 import Header1 from '@/components/Header1'

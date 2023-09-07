@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
 import { CounterContext } from '@/ThemeContext'
+import { baseRoute } from '@/utils/route'
 
 
 const Signup = () => {
@@ -50,7 +51,7 @@ var requestOptions:any = {
   redirect: 'follow'
 };
 
-fetch("http://127.0.0.1:8000/api/user-register", requestOptions)
+fetch(`${baseRoute}user-register`, requestOptions)
   .then(response => response.json())
   .then((result) =>{
     if (result.error) {

@@ -1,16 +1,11 @@
-import { CounterContext } from '@/ThemeContext';
-import Calendar from '@/components/Calendar';
-import Card from '@/components/Card';
 import CountDownTimer from '@/components/CountDownTimer';
-import ApexChart from '@/components/PieChart';
 import { baseRoute } from '@/utils/route';
 import Image from 'next/image'
-import React, { useContext, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 
 const ProductDetailGuest = ({ id,setId }: any) => {
     const [loading, setLoading] = useState<any>(false);
     const [data, setData] = useState<any>([]);
-    const {state,dispatch} = useContext(CounterContext)
     const [offers,setOffers] = useState([])
    
 useEffect(() => {
@@ -34,7 +29,7 @@ useEffect(() => {
                 .catch(error => console.log('error', error));
                 
             //   console.log(`http://127.0.0.1:8000/api/bars?id=${id}`,'acha')
-                fetch(`http://127.0.0.1:8000/api/bars?id=${id}`, requestOptions)
+                fetch(`${baseRoute}bars?id=${id}`, requestOptions)
                 .then(response => response.json())
                 .then((result )=> {
                     setData(result.data)

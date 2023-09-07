@@ -1,5 +1,5 @@
 import React from 'react'
-import Signup from '@/app/signup/Signup'
+import Signup from '@/components/Signup'
 import Header1 from '@/components/Header1'
 
 

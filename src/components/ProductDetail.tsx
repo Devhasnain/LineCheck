@@ -58,7 +58,7 @@ const ProductDetail = ({ id,setId }: any) => {
                     })
                       .catch(error => console.log('error', error));
                 //   console.log(`http://127.0.0.1:8000/api/bars?id=${id}`,'acha')
-                  fetch(`http://127.0.0.1:8000/api/bars?id=${id}`, requestOptions)
+                  fetch(`${baseRoute}bars?id=${id}`, requestOptions)
                     .then(response => response.json())
                     .then((result )=> {
                         setData(result.data)
@@ -163,7 +163,7 @@ function minutesToHHMM(seconds:any) {
     const remainingFractionalSeconds = remainingSeconds % 60;
     
     // Format hours, minutes, and fractional seconds with leading zeros if needed
-    const formattedMinutes = minutes.toString().padStart(2, '0');
+    const formattedMinutes = minutes?.toString().padStart(2, '0') || '';
     const formattedFractionalSeconds = remainingFractionalSeconds.toFixed(0).padStart(2, '0');
     
     if (hours > 0) {

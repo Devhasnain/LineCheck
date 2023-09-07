@@ -1,7 +1,5 @@
 'use client'
 import Button from '@/components/Button'
-import Footer from '@/components/Footer'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -41,7 +39,7 @@ text-align: left;
       }
     `}</style>
     <div className="h-[80vh] flex flex-col items-center justify-center">
-      <h1 className="heading">We're on a mission <br />
+      <h1 className="heading">Were on a mission <br />
 to eliminate wait times</h1>
       <p className="paragraph my-4">
       People spend 1 Trillion hours every year waiting in lines.

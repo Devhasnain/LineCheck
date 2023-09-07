@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Button from '@/components/Button';
 import { useRouter, useSearchParams } from "next/navigation";
 import { CounterContext } from '@/ThemeContext';
+import { baseRoute } from '@/utils/route';
 
 const Login = () => {
   const router = useRouter();
@@ -75,7 +76,7 @@ var requestOptions:any = {
   redirect: 'follow'
 };
 
-fetch("http://127.0.0.1:8000/api/user-login", requestOptions)
+fetch(`${baseRoute}user-login`, requestOptions)
   .then(response => response.json())
   .then((result) =>{
     if (result.error) {

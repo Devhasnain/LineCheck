@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import { baseRoute } from '@/utils/route'
 
 const Calendar = () => {
   function renderEventContent(eventInfo:any) {
@@ -46,7 +47,7 @@ const Calendar = () => {
         redirect: 'follow'
       };
       
-      fetch(`http://127.0.0.1:8000/api/barsDates/${2}`, requestOptions)
+      fetch(`${baseRoute}barsDates/${2}`, requestOptions)
         .then(response => response.json())
         .then((result) => {
           setDates(result.data)

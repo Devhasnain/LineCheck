@@ -1,63 +1,54 @@
-import React, { useState } from "react";
-import Chart from "react-apexcharts";
+'use client'
+import React from 'react';
+import dynamic from 'next/dynamic';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const ApexChart = ({volume}:any) => {
-  console.log(volume,'volume')
-  const [chartData, setChartData] = useState<any>({
-    series: [volume,100],
-    options: {
-        colors: ['#00000033','#545454'],
-      chart: {
-        width: 380,
-        type: 'donut',
+const ApexChart = ({ volume }: any) => {
+  const series= [parseInt(volume), 400]; // Adjust the values as needed
+  const options :any= {
+    colors: ['#00000033', '#545454'],
+    chart: {
+      width: 380,
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 270,
       },
-      plotOptions: {
-        pie: {
-          startAngle: -90,
-          endAngle: 270
-        }
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    fill: {
+      type: 'gradient',
+    },
+    legend: {
+      show: false,
+      formatter: function (val:any, opts:any) {
+        return val + ' - ' + opts.w.globals.series[opts.seriesIndex];
       },
-      dataLabels: {
-        enabled: false
-      },
-      fill: {
-        type: 'gradient',
-      },
-      legend: {
-        show: false,
-        formatter: function(val:any, opts:any) {
-          return val + " - " + opts.w.globals.series[opts.seriesIndex]
-        }
-      },
-      // title: {
-      //   text: 'Volume',
-      //   style:{
-      //     textalign:'center'
-      //   }
-      // },
-      responsive: [{
+    },
+    responsive: [
+      {
         breakpoint: 480,
         options: {
           chart: {
-            width: 100
+            width: 100,
           },
           legend: {
-            position: 'bottom'
-          }
-        }
-      }]
-    }
-  });
+            position: 'bottom',
+          },
+        },
+      },
+    ],
+  };
 
   return (
-     <div className="text-center">
+    <div className="text-center">
       <h1>Volume</h1>
-       <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type="donut"
-      />
-     </div>
+      {volume && <Chart options={options} series={series} type="donut" />}
+    </div>
   );
 };
 

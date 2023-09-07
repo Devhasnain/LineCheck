@@ -4,6 +4,7 @@ import CountDownCard from './CountDownCard';
 import ApexChart from './PieChart';
 
 const CountDownTimer = ({waitTime,lineQueue,volume}:any) => {
+  console.log(waitTime,lineQueue,volume,'acha nhi tooooo')
   //card ref
   const SecondsCardRef:any = useRef(null);
   const MinutesCardRef:any = useRef(null);
@@ -12,11 +13,12 @@ const CountDownTimer = ({waitTime,lineQueue,volume}:any) => {
   //state
   // const [days, setDays] = useState<any>(14);
   // const [hours, setHours] = useState<any>(0);
-const [minutes, setMinutes] = useState<any>(waitTime?.start || 0);
+const [minutes, setMinutes] = useState<any>(waitTime?.split(':')[0] || 0);
 
-  const [seconds, setSeconds] = useState<any>(waitTime?.end ||0);
+  const [seconds, setSeconds] = useState<any>(waitTime?.split(':')[1] ||0);
 console.log(waitTime,'waitTime')
   useEffect(() => {
+    console.log(waitTime,lineQueue,volume,'acha nhi tooooo')
     seconds === 0 && setSeconds(59);
     minutes === 0 && setMinutes(59);
     if (seconds > 0) {

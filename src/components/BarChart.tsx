@@ -1,6 +1,8 @@
+'use client'
 import Image from 'next/image';
 import React, { useState } from 'react'
-import Chart from "react-apexcharts";
+import dynamic from 'next/dynamic';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const BarChart = ({Bards}:any) => {
   const colors =['#ffff']
@@ -258,11 +260,11 @@ const BarChart = ({Bards}:any) => {
        
        <CustomDropdown/>
       </div>
-      <Chart
-        options={options}
-        series={series}
-        type="bar"
-      />
+  <Chart
+  options={options}
+  series={series}
+  type="bar"
+/>
     </div>
   )
 }
