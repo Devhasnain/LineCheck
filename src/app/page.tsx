@@ -1,18 +1,8 @@
 'use client'
-import dynamic from "next/dynamic";
 
-const Button = dynamic(
-  () => import("@/components/Button"),
-
-);
-const Footer = dynamic(
-  () => import("@/components/Footer"),
-);
-const Header = dynamic(
-  () => import("@/components/Header"),
- 
-);
-
+import Button from '@/components/Button'
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 import Image from 'next/image'
 import Link from 'next/link'
 
