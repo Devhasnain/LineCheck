@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useRef, useState } from 'react';
 
 import CountDownCard from './CountDownCard';
@@ -48,9 +50,8 @@ console.log(waitTime,'waitTime')
   return (
   <div className=" text-center flex ">
     <div className="">
-    <h1>WAIT TIME</h1>
+    <h1 className='text-white'>WAIT TIME</h1>
       <div className="countdown__container w-[200px]">
-      
       <CountDownCard
         label="min"
         number={minutes}
@@ -68,7 +69,7 @@ console.log(waitTime,'waitTime')
     <ApexChart volume={volume}/>
     </div>
     <div className="">
-    <h1>Line Queue</h1>
+    <h1 className='text-white'>Line Queue</h1>
     <div className="countdown__container w-[200px]">
     <CountDownCard
         label="Line Queue"

@@ -1,4 +1,7 @@
 // components/BarCard.js
+'use client'
+
+import { baseRoute } from '@/utils/route';
 import React, { useState } from 'react';
 
 const BarCard = ({ bar }:any) => {
@@ -24,7 +27,7 @@ var requestOptions:any = {
   redirect: 'follow'
 };
 
-fetch("http://127.0.0.1:8000/api/togglebar", requestOptions)
+fetch(`${baseRoute}togglebar`, requestOptions)
   .then(response => response.json())
   .then((result )=> {
     

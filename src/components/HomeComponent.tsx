@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 import Header3 from './Header3'
@@ -51,12 +52,10 @@ fetch(`${baseRoute}allbars`, requestOptions)
     setLoading(false)
 })
 .catch(error => console.log('error', error));
-          
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
     fetchData();
   }, []);
  
@@ -70,13 +69,12 @@ fetch(`${baseRoute}allbars`, requestOptions)
           items.title.toLowerCase().search(value.toLowerCase().trim()) !==
           -1
       );
-  
     setFilteredItems(updatedList);
     !updatedList.length ? setResultFound(false) : setResultFound(true);
   };
  
   return (
-    <div>
+    <div className='bg-black'>
         <div className="">
      <Header3 applyFilters={applyFilters} inputSearch={inputSearch}/>
      <div>{GetId!=''?(
@@ -110,10 +108,9 @@ fetch(`${baseRoute}allbars`, requestOptions)
     </div>
      <div className="mt-8">
         <div className="flex items-center gap-4">
-        <h1 className='text-[25px] font-bold'>Offers near you</h1>
-        <p className='text-[#4D7C1B] text-[14px]'>View all (298)</p>
+        <h1 className='text-[25px] font-bold'>All Bars</h1>
         </div>
-        <div className="mt-2 flex gap-4 items-center">
+        <div className="my-2 flex gap-4 items-center">
             {filteredItems&&filteredItems.map((items:any,index:number)=>(
                 <Card key={index} setId={setId} image={items.image}  id={items.bar_id} waitTime={items.waitTime} offers={items.offers} title={items.title} rating={items.rating}/>
             ))}

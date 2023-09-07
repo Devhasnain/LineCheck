@@ -4,11 +4,14 @@ import Footer from '@/components/Footer'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import Navbar from '@/components/Header'
 
 const page = () => {
     
     return (
-        <main className="bg-[#000000de]">
+        <>
+          <Navbar />
+        <main className="bg-black">
             <style jsx>{`
       .heading {
         color: white;
@@ -68,7 +71,7 @@ Ask us in real time.
                     <p className="paragraph !text-[0.8rem]  !text-[#4100FA] ">
                      Open live chat
                     </p>
-                     <p className="paragraph  !font-bold !text-[1.3rem] mt-16 !text-black">
+                     <p className="paragraph  !font-bold !text-[1.3rem] !text-black">
                      Work with us
                     </p>
                     <p className="paragraph !text-[0.8rem]  !text-[#4100FA] ">
@@ -88,7 +91,7 @@ Ask us in real time.
                     <p className="paragraph !font-bold mb-1 !text-[1.3rem] !text-end mt-16 !text-black">
                     Company info
                     </p>
-                    <p className="paragraph mt-2 text-gray-300 !text-[0.8rem] !text-end">
+                    <p className="paragraph mt-2 !text-gray-300 !text-[0.8rem] !text-end">
                     Linecheck is built to improve the way people wait
 in lines. Using technology, we help businesses
 deliver better waiting experiences to their
@@ -119,6 +122,7 @@ companies using Linecheck</h1>
 
 
         </main>
+        <Footer/></>
     )
 }
 

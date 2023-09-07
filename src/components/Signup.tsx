@@ -1,11 +1,13 @@
 'use client'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Button from '@/components/Button'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { CounterContext } from '@/ThemeContext'
 import { baseRoute } from '@/utils/route'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Signup = () => {
@@ -39,7 +41,7 @@ myHeaders.append("Accept", "application/json");
 myHeaders.append("Content-Type", "application/json");
 
 var raw = JSON.stringify({
-  "role_type": "2",
+  "role_type": "3",
   "signup_type": "Email",
   mobile,lastname,firstname,email,password
 })
@@ -54,22 +56,32 @@ var requestOptions:any = {
 fetch(`${baseRoute}user-register`, requestOptions)
   .then(response => response.json())
   .then((result) =>{
-    if (result.error) {
-      console.log("User registration failed.");
+    if (!result.status) {
+      toast.error('Email already registered ')
       return
     } 
     if(result.status){
+      toast.success('User Create Successfull')
+      setLoginUser({
+          firstname:'',lastname:'', email:'', password:'',mobile:"", confirmPassword:"" 
+      })
       dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
       localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
+      localStorage.setItem('user',JSON.stringify(result.detail))
       router.replace("home");
     }
-    console.log(result)})
+    console.log(result)
+  })
   .catch(error => console.log('error', error));
     } catch (error) {
       console.log("Error during registration: ", error);
     }
   };
 
+  useEffect(() => {
+    let token = localStorage.getItem('token')
+    if(token) redirect('/home')
+}, [])
 
 
   
@@ -87,7 +99,7 @@ fetch(`${baseRoute}user-register`, requestOptions)
       </div>
       <form className="mt-8 space-y-6" >
        <div className="flex gap-4 items-center">
-       <div className=''>
+       <div className='w-full'>
           <label htmlFor="firstname" className="block text-sm font-medium text-white">
           First Name
           </label>
@@ -95,13 +107,13 @@ fetch(`${baseRoute}user-register`, requestOptions)
             id="firstname"
             name="firstname"
             type="text"
-          placeholder='John'
+          placeholder='First Name'
             className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block  shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.firstname}
             onChange={handlerChange}
           />
         </div>
-        <div>
+        <div className='w-full'>
           <label htmlFor="lastname" className="block text-sm font-medium text-white">
           Last Name
           </label>
@@ -109,7 +121,7 @@ fetch(`${baseRoute}user-register`, requestOptions)
             id="lastname"
             name="lastname"
             type="text"
-            placeholder='Wick'
+            placeholder='Last Name'
             className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.lastname}
             onChange={handlerChange}
@@ -124,7 +136,7 @@ fetch(`${baseRoute}user-register`, requestOptions)
             id="email"
             name="email"
             type="email"
-            placeholder='johnwick@domainname.com'
+            placeholder='Email Address'
             autoComplete="email"
             className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.email}
@@ -158,7 +170,7 @@ fetch(`${baseRoute}user-register`, requestOptions)
             id="mobile"
             name="mobile"
             type="text"
-            placeholder='1 (205) 201-0933'
+            placeholder='+1 (205) 201-0933'
             className="text-white mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
             value={loginUser.mobile}
             onChange={handlerChange}
@@ -179,6 +191,7 @@ fetch(`${baseRoute}user-register`, requestOptions)
         </div>
       </form>
     </div>
+    <ToastContainer/>
   </div>
   )
 }

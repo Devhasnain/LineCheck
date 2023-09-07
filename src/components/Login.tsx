@@ -4,9 +4,12 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '@/components/Button';
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { CounterContext } from '@/ThemeContext';
 import { baseRoute } from '@/utils/route';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
   const router = useRouter();
@@ -80,12 +83,16 @@ fetch(`${baseRoute}user-login`, requestOptions)
   .then(response => response.json())
   .then((result) =>{
     if (result.error) {
-      setError("Invalid Credentials");
+      // setError("Invalid Credentials");
+      toast.error('Invalid Credentials')
+
       return;
     }
 if(result.status){
+  toast.success('Login successfully')
   dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
   localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
+  localStorage.setItem('user',JSON.stringify(result.detail))
   router.replace("home");
 }
     
@@ -96,6 +103,11 @@ if(result.status){
     }
   };
 console.log(state,'state')
+  
+useEffect(() => {
+      let token = localStorage.getItem('token')
+      if(token) redirect('/home')
+}, [])
   return (
     <div className=" mx-auto mt-8 max-w-[1500px]  min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
@@ -117,7 +129,8 @@ console.log(state,'state')
               name="email"
               type="email"
               autoComplete="email"
-              className="mt-1 py-3  px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              placeholder='Email'
+              className="mt-1 py-3 bg-[#8560ed42] px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.email}
               onChange={handlerChange}
             />
@@ -127,7 +140,7 @@ console.log(state,'state')
               <label htmlFor="password" className="block text-sm font-medium text-white">
                  Password
               </label>
-                <label   htmlFor="forgot" className="text-white cursor-pointer block text-sm font-medium text-[#4100FA]">
+                <label   htmlFor="forgot" className="cursor-pointer block text-sm font-medium text-[#4100FA]">
                   Forgot Password?
                 </label>
             </div>
@@ -135,8 +148,9 @@ console.log(state,'state')
               id="password"
               name="password"
               type="password"
+              placeholder='Password'
               autoComplete="current-password"
-              className=" mt-1 py-3 px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              className=" mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.password}
               onChange={handlerChange}
             />
@@ -156,6 +170,7 @@ console.log(state,'state')
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

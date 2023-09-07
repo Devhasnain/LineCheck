@@ -1,11 +1,15 @@
 'use client'
 import Button from '@/components/Button'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 import React from 'react'
+import Navbar from '@/components/Header'
 
 const page = () => {
   return (
-    <main className="bg-[#000000de]">
+    <>
+     <Navbar />
+    <main className=" bg-black">
     <style jsx>{`
       .heading {
         color: white;
@@ -153,6 +157,8 @@ and application security.</p>
   
 
   </main>
+  <Footer/>
+    </>
   )
 }
 

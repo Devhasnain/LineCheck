@@ -22,9 +22,9 @@ const Header1 = () => {
                
             }
           `}</style>
-      <div className="relative h-[30px] w-[200px] mr-4">
+      <div className="relative h-[80px] w-[100px] mr-4">
       <Link href="/" className=" font-inter">
-        <Image src="/logo1.png" fill alt="Logo"  />
+        <Image src="/logo.png" fill alt="Logo"  />
       </Link>
       </div>
       <div className="space-x-4 paragraph flex items-center">

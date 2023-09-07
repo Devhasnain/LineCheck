@@ -3,7 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import { baseRoute } from '@/utils/route'
 
-const Calendar = () => {
+const Calendar = ({barid}:any) => {
   function renderEventContent(eventInfo:any) {
     console.log('titleayega',eventInfo.event._def)
     return (
@@ -47,7 +47,7 @@ const Calendar = () => {
         redirect: 'follow'
       };
       
-      fetch(`${baseRoute}barsDates/${2}`, requestOptions)
+      fetch(`${baseRoute}barsDates/${barid}`, requestOptions)
         .then(response => response.json())
         .then((result) => {
           setDates(result.data)
@@ -58,15 +58,16 @@ const Calendar = () => {
   },[])
   console.log('AllDates',AllDates)
   return (
-    <div>
+    <div className=''>
          <FullCalendar
+         height={500}
           plugins={[
             dayGridPlugin,
           ]}
           headerToolbar={{
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
-            right: 'dayGridMonth'
+            right: ''
           }}
           // nowIndicator={true}
           // editable={true}

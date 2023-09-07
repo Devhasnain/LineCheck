@@ -126,7 +126,7 @@ var requestOptions:any = {
   redirect: 'follow'
 };
 
-fetch("http://127.0.0.1:8000/api/showAllBars", requestOptions)
+fetch(`${baseRoute}showAllBars`, requestOptions)
   .then(response => response.json())
   .then((result:any) =>{
     setBars(result.data)

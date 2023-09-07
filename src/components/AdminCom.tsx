@@ -1,12 +1,12 @@
-import { CounterContext } from '@/ThemeContext';
-import React, { useState } from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import BarChart from '@/components/BarChart';
-import { baseRoute } from '@/utils/route';
 import AdminCompmonent from './AdminComponent';
+import { redirect } from 'next/navigation';
+import { baseRoute } from '@/utils/route';
 
 const AdminCom = () => {
-    
       const [toggle,setToggle] = useState(false)
     const CreateBar = ()=>{
         const [getImage,setImage] = useState<any>(null)
@@ -50,7 +50,7 @@ const AdminCom = () => {
       redirect: 'follow'
     };
     
-    fetch(`http://127.0.0.1:8000/api/bars`, requestOptions)
+    fetch(`${baseRoute}bars`, requestOptions)
       .then(response => response.json())
       .then((result:any) => {
         setValues({
@@ -209,8 +209,11 @@ const AdminCom = () => {
           
         )
       }
+      useEffect(() => {
+        let token = localStorage.getItem('token')
+        if(!token) redirect('/login')
+    }, [])
   return (
-    <div>
          <div className='flex w-full  bg-black'>
             <div className="bg-[#212429] w-[17%] h-screen">
                 <div className="flex justify-center">
@@ -244,7 +247,6 @@ const AdminCom = () => {
                 )}
             </div>
         </div>
-    </div>
   )
 }
 

@@ -1,9 +1,12 @@
+'use client'
+
 import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { baseRoute } from '@/utils/route';
 import SubComponent from '@/components/SubComponent';
+import { redirect } from 'next/navigation';
 
-const SubACom = () => {
+const SubACom = ({bar_id}:any) => {
     const [toggle,setToggle] = useState(false)
     const Offers = ()=>{
         const [formData, setFormData] = useState<any>({
@@ -179,6 +182,10 @@ fetch(`${baseRoute}offers`, requestOptions)
     </div>
         )
     }
+    useEffect(() => {
+      let token = localStorage.getItem('token')
+      if(!token) redirect('/login')
+  }, [])
   return (
     <div className='flex w-full '>
     <div className="bg-[#212429] w-[17%] h-screen">
