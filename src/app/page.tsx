@@ -3,21 +3,14 @@ import dynamic from "next/dynamic";
 
 const Button = dynamic(
   () => import("@/components/Button"),
-  {
-    ssr: false,
-  }
+
 );
 const Footer = dynamic(
   () => import("@/components/Footer"),
-  {
-    ssr: false,
-  }
 );
 const Header = dynamic(
   () => import("@/components/Header"),
-  {
-    ssr: false,
-  }
+ 
 );
 
 import Image from 'next/image'
