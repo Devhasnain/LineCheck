@@ -127,8 +127,9 @@ text-align: left;
       <h1 className="heading">Boost your sales with the <br />
 perfect customer flow</h1>
       <p className="paragraph my-4 mt-8 w-[80%] mx-auto ">
-      Join the thousands of companies using Linecheck
+      Join the thousands of  companies using Linecheck
       </p>
+
             <Link href="/signup" >
               <Button  className="w-[120px] h-[50px] !bg-white !text-black">Try it free</Button>
               </Link>
