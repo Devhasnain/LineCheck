@@ -3,6 +3,7 @@
 
 import { baseRoute } from '@/utils/route';
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 const BarCard = ({ bar }:any) => {
   const [enabled, setEnabled] = useState(bar.is_active);
@@ -30,8 +31,8 @@ var requestOptions:any = {
 fetch(`${baseRoute}togglebar`, requestOptions)
   .then(response => response.json())
   .then((result )=> {
-    
-    alert(result.message)
+    toast.success(result.message)
+  
     console.log(result)})
   .catch(error => console.log('error', error));
   };
@@ -45,6 +46,7 @@ fetch(`${baseRoute}togglebar`, requestOptions)
       <button onClick={()=>toggleEnabled(bar.bar_id)} className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none ${enabled ? 'hover:bg-blue-600' : 'cursor-not-allowed'}`}>
         {enabled ? 'Disable' : 'Enable'}
       </button>
+      <ToastContainer/>
     </div>
   );
 };

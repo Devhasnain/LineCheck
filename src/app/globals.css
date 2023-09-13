@@ -5,3 +5,8 @@
 .apexcharts-menu-icon{
     display: none;
 }
+
+.fc-event.fc-event-start.fc-event-end.fc-event-past.fc-daygrid-event.fc-daygrid-dot-event:hover{
+    background-color: transparent;
+
+}

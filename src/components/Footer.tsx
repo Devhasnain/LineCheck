@@ -26,7 +26,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="">
               <h1 className="text-greentext  text-white font-bold text-[24px]  2xl:text-[45px]">Drop us a line</h1>
-              <h1 className="text-greentext  text-yellow-300 font-bold text-[24px]  2xl:text-[45px]">hello@Linecheck.com</h1>
+              <h1 className="text-greentext  text-yellow-300 font-bold text-[24px]  2xl:text-[45px]">info@linecheck.ca</h1>
             </div>
             <div className="space-y-4">
               <h1 className=" text-xl 2xl:text-[35px] text-white font-bold">Company</h1>
@@ -46,7 +46,7 @@ const Footer = () => {
               </Link>
               </ul>
             </div>
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <h1 className=" text-xl font-bold text-white 2xl:text-[35px]">Product</h1>
               <div className="flex space-x-4 justify-between">
                 <ul className="flex flex-col gap-2">
@@ -59,7 +59,7 @@ const Footer = () => {
                 </ul>
               
               </div>
-            </div>
+            </div> */}
           </div>
           
          

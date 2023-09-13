@@ -5,13 +5,14 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Image from 'next/image'
 import Link from 'next/link'
+import React,{Suspense} from 'react'
 
 export default async function Home() {
   
   return (
-    <>
+    <Suspense fallback={<>loading...</>}>
     <Header />
-    <main className="bg-black">
+    <div className="bg-black">
     <style jsx>{`
       .heading {
         color: white;
@@ -135,9 +136,9 @@ perfect customer flow</h1>
               </Link>
       <p className="text-gray-300 my-4 text-sm">No payment required</p>
     </div>
-  </main>
+  </div>
 <Footer/>
-    </>
+    </Suspense>
   
   )
 }

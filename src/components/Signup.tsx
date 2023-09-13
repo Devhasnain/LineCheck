@@ -68,7 +68,7 @@ fetch(`${baseRoute}user-register`, requestOptions)
       dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
       localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
       localStorage.setItem('user',JSON.stringify(result.detail))
-      router.replace("home");
+      router.push("home");
     }
     console.log(result)
   })

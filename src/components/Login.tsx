@@ -88,12 +88,38 @@ fetch(`${baseRoute}user-login`, requestOptions)
 
       return;
     }
+    console.log(result)
 if(result.status){
-  toast.success('Login successfully')
-  dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
-  localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
-  localStorage.setItem('user',JSON.stringify(result.detail))
-  router.replace("home");
+  if(result.detail.user_status =='0'){
+    setLoginUser({
+        email:'',
+        password:''
+    })
+    toast.error('You are bar is not active Contact to admin')
+  }else{
+  if(result.detail.role_type =='3'){
+    toast.success('Login successfully')
+    dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
+    localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
+    localStorage.setItem('user',JSON.stringify(result.detail))
+    // router.push("home");
+  }
+  if(result.detail.role_type =='2'){
+    toast.success('Login successfully')
+    dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
+    localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
+    localStorage.setItem('user',JSON.stringify(result.detail))
+    router.push("subadmin");
+  }
+  if(result.detail.role_type =='1'){
+    toast.success('Login successfully')
+    dispatch({type:'USER',payload:{...result.token_detail,...result.detail}})
+    localStorage.setItem('token',JSON.stringify(result.token_detail.access_token))
+    localStorage.setItem('user',JSON.stringify(result.detail))
+    router.push("admin");
+  }
+}
+
 }
     
     console.log(result)})
@@ -130,7 +156,7 @@ useEffect(() => {
               type="email"
               autoComplete="email"
               placeholder='Email'
-              className="mt-1 py-3 bg-[#8560ed42] px-4 focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              className="mt-1 py-3 bg-[#8560ed42] px-4 focus:ring-indigo-500 outline-none text-white focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.email}
               onChange={handlerChange}
             />
@@ -150,7 +176,7 @@ useEffect(() => {
               type="password"
               placeholder='Password'
               autoComplete="current-password"
-              className=" mt-1 py-3 px-4 bg-[#8560ed42] focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
+              className=" mt-1 py-3 px-4 bg-[#8560ed42] text-white focus:ring-indigo-500 outline-none focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-2xl"
               value={loginUser.password}
               onChange={handlerChange}
             />
@@ -162,7 +188,7 @@ useEffect(() => {
             {/* </Link> */}
             
             {/* <Link href="https://localhost/beetlepro.com/admin/login/google"> */}
-            <button  className='flex items-center justify-center gap-2 px-4 py-2 text-gray-600 bg-gray-300 rounded-md sm:w-auto'>
+            <button className='flex items-center justify-center gap-2 px-4 py-2 text-gray-600 bg-gray-300 rounded-md sm:w-auto'>
               <Image src={'/google-icon 1.png'} width={20} height={20} alt=''/>
               Sign in With Google
             </button>

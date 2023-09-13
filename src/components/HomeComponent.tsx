@@ -18,7 +18,7 @@ const [inputSearch,setInputSearch]=useState('')
 const [filteredItems,setFilteredItems]=useState([])
 const {dispatch,state}= useContext(CounterContext);
 const [checkAuth,setCheckAuth] = useState(false)
-
+console.log(state,'home')
 useEffect(() => {
     let token:any = JSON.parse(localStorage.getItem('token')as any);
 if (token) {
@@ -74,7 +74,7 @@ fetch(`${baseRoute}allbars`, requestOptions)
   };
  
   return (
-    <div className='bg-black'>
+    <div className='bg-white'>
         <div className="">
      <Header3 applyFilters={applyFilters} inputSearch={inputSearch}/>
      <div>{GetId!=''?(

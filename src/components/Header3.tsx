@@ -1,16 +1,26 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Button from './Button';
+import { redirect,useRouter } from 'next/navigation';
 
 const Header3 = ({applyFilters,inputSearch}:any) => {
-     
+  const router = useRouter()
+  const [token,setToken] = useState('')
+  useLayoutEffect(() => {
+    let token:any = JSON.parse(localStorage.getItem('token') as any)
+    setToken(token)
+}, [])
+const handlerLogout =()=>{
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  router.push('/login')
+ }
   return (
     <nav className="bg-black w-[80%] mx-auto  my-0  p-4 flex items-center justify-between">
         <style jsx>{`
             .paragraph {
-          
                 font-size: 16px;
                 font-weight: 500;
                 line-height: 24px;
@@ -37,7 +47,9 @@ const Header3 = ({applyFilters,inputSearch}:any) => {
       <div className="space-x-4  flex items-center">
         <Link href="/aboutus" className="text-white font-inter">About us</Link>
         <Link href="/contactus" className="text-white font-inter">Contact us </Link>
-        <Link href="/login" className="text-white font-inter">Login</Link>
+        {token?(
+          <button onClick={handlerLogout} className="text-white font-inter">Logout</button>
+        ):<Link href="/login" className="text-white font-inter">Login</Link>}
         <Link href="/signup" className="text-white font-inter">Try it Free</Link>
       </div>
     </nav>

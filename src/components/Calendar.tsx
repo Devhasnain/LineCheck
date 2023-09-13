@@ -13,8 +13,8 @@ const Calendar = ({barid}:any) => {
         <i>{eventInfo.event.title}</i>
         <button>123</button>
       </div> */}
-      <div className="rounded-3xl absolute bg-white  right-0 flex justify-center items-center flex-col top-8 h-[60px] w-[80px]">
-                <h1 className='text-[16px] font-medium'>10-05</h1>
+      <div className="rounded-3xl absolute bg-white  right-4 border flex justify-center items-center flex-col -bottom-6 h-[50px] w-[80px]">
+                <h1 className='text-[14px] font-medium'>10-05</h1>
                 <p className='text-[12px] text-[#585C5C]'>min</p>
             </div>
            </div>
@@ -37,7 +37,7 @@ const Calendar = ({barid}:any) => {
     // ) {
     //   clickInfo.event.remove();
     // }
-    alert('ok')
+  
   };
   const [AllDates,setDates]=useState([])
   useLayoutEffect(()=>{
@@ -51,7 +51,7 @@ const Calendar = ({barid}:any) => {
         .then(response => response.json())
         .then((result) => {
           setDates(result.data)
-          console.log(result)})
+          console.log(result,'acha')})
         .catch(error => console.log('error', error));
     }
     fect()

@@ -8,6 +8,7 @@ import CountDownTimer from '@/components/CountDownTimer';
 import ApexChart from '@/components/PieChart';
 import { baseRoute } from '@/utils/route';
 import Image from 'next/image'
+import { ToastContainer, toast } from 'react-toastify';
 const ProductDetail = ({ id,setId }: any) => {
     const [loading, setLoading] = useState<any>(false);
     const [data, setData] = useState<any>([]);
@@ -136,7 +137,7 @@ const ProductDetail = ({ id,setId }: any) => {
         fetch(`${baseRoute}bartimmings/update/${userData.id}/${id}`, requestOptions)
           .then(response => response.json())
           .then(result =>{
-            alert('update successfully')
+            toast.success('update successfully')
              console.log(result)})
           .catch(error => console.log('error', error));
     }
@@ -164,6 +165,7 @@ fetch(`${baseRoute}bartimmings`, requestOptions)
     fetch(`${baseRoute}bartimmings/id/${userData.id}`, requestOptions)
     .then(response => response.json())
     .then((result) => {
+    toast.success('Successfully')
       setWaitTime(timeToDecimal(result.data[0].waittime))
       setVolume(parseInt(result.data[0].volume))
       setPerson(parseInt(result.data[0].queue))
@@ -202,9 +204,9 @@ function minutesToHHMM(seconds:any) {
                     <Image src={data.image} className='rounded-lg' fill alt='' />
                 </div>
                 <div className="p-2  w-[70%] " >
-                    <h1 className='text-md font-semibold text-[25px] text-white'>{data.title}</h1>
+                    <h1 className='text-md font-semibold text-[25px] '>{data.title}</h1>
                     <span className='flex items-center gap-2 '>
-                        <Image src={'/start.png'} className='rounded-lg text-white' height={15} width={15} alt='' />
+                        <Image src={'/start.png'} className='rounded-lg ' height={15} width={15} alt='' />
                         <p className='text-[12px] text-[#4D7C1B]'>{data.rating} Excellent</p>
                         <p className=' text-[12px] text-[#585C5C]'>(500+)</p>
                     </span>
@@ -212,13 +214,13 @@ function minutesToHHMM(seconds:any) {
                         {/* <CountDownTimer waitTime={data.waitTime} lineQueue={data.lineQueue}/> */}
                         <div className="flex gap-8 items-center">
                             <div className="text-center">
-                            <h1 className='text-[20px] font-bold text-white'>WAIT TIME</h1>
-                            <div className="bg-[#1C1C1E80] w-[150px] flex justify-center flex-col items-center rounded-3xl p-2">
+                            <h1 className='text-[20px] font-bold '>WAIT TIME</h1>
+                            <div className="bg-[#1C1C1E80] w-[160px] flex justify-center flex-col items-center rounded-3xl p-2">
                                 <Image src={'/StopwatchIconAnimation.png'} width={100} height={100} alt='' />
                                 <div className="h-10 w-[90%] bg-[#a8a8ad99] rounded-lg  p-1 mx-auto my-0 flex items-center justify-between">
                                     <Image src={'/minus.png'} onClick={() => handlerVolumeChanger('waitTimeMinus')} width={30} height={30} alt='' />
                                     <div className=" flex flex-col items-center">
-                                        <h6 className='text-[#FFFFFF] text-[12px]'>Volume</h6>
+                                        <h6 className='text-[#FFFFFF] text-[12px]'>wait time</h6>
                                         <div className='flex items-center '>
                                             <h6 className='text-white text-[14px]'>{getWaitTime}</h6>
                                             
@@ -230,8 +232,8 @@ function minutesToHHMM(seconds:any) {
                             </div>
                             </div>
                             <div className="text-center">
-                            <h1 className='text-[20px] font-bold text-white'>Volume</h1>
-                            <div className="bg-[#1C1C1E80] w-[150px] flex justify-center flex-col items-center rounded-3xl p-2">
+                            <h1 className='text-[20px] font-bold '>Volume</h1>
+                            <div className="bg-[#1C1C1E80] w-[160px] flex justify-center flex-col items-center rounded-3xl p-2">
                                 <Image src={'/StopwatchIconAnimation (1).png'} width={100} height={100} alt='' />
                                 <div className="h-10 w-[90%] bg-[#a8a8ad99] rounded-lg  p-1 mx-auto my-0 flex items-center justify-between">
                                     <Image src={'/minus.png'} onClick={() => handlerVolumeChanger('volumeMinus')} width={30} height={30} alt='' />
@@ -247,13 +249,13 @@ function minutesToHHMM(seconds:any) {
                             </div>
                             </div>
                             <div className="text-center">
-                            <h1 className='text-[20px] font-bold text-white'>Person</h1>
-                            <div className="bg-[#1C1C1E80] w-[150px] flex justify-center flex-col items-center rounded-3xl p-2">
+                            <h1 className='text-[20px] font-bold '>Person</h1>
+                            <div className="bg-[#1C1C1E80] w-[160px] flex justify-center flex-col items-center rounded-3xl p-2">
                                 <Image src={'/multiple-users-silhouette 1.png'} width={100} height={100} alt='' />
                                 <div className="h-10 w-[90%] bg-[#a8a8ad99] rounded-lg  p-1 mx-auto my-0 flex items-center justify-between">
                                     <Image src={'/minus.png'} onClick={() => handlerVolumeChanger('personMinus')} width={30} height={30} alt='' />
                                     <div className=" flex flex-col items-center">
-                                        <h6 className='text-[#FFFFFF] text-[12px]'>Volume</h6>
+                                        <h6 className='text-[#FFFFFF] text-[12px]'>Person</h6>
                                         <div className='flex'>
                                             <h6 className='text-white text-[14px]'>{person}</h6>
                                         </div>
@@ -291,6 +293,7 @@ function minutesToHHMM(seconds:any) {
         </div>
             ))}
         </div> */}
+        <ToastContainer/>
         </div>
     )
 }

@@ -1,13 +1,22 @@
 'use client'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import Image from 'next/image'
 import { baseRoute } from '@/utils/route';
 import SubComponent from '@/components/SubComponent';
-import { redirect } from 'next/navigation';
+import { redirect ,useRouter} from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
 
-const SubACom = ({bar_id}:any) => {
+const SubACom = () => {
+  const router = useRouter()
     const [toggle,setToggle] = useState(false)
+    const [getUser,setUser] = useState<any>({
+      image:'',
+      name:'',
+      email:''
+     })
+    const [barData,setBarData] = useState<any>({})
+
     const Offers = ()=>{
         const [formData, setFormData] = useState<any>({
             bar_id: 1,
@@ -16,7 +25,6 @@ const SubACom = ({bar_id}:any) => {
             description: '',
             is_active: true,
             price: 19.99,
-            rating:0
           });
         
           const handleChange = (e:any) => {
@@ -40,16 +48,13 @@ const SubACom = ({bar_id}:any) => {
             // Send the formData (including the image file) to your API or perform any necessary actions.
             console.log(formData);
             var myHeaders = new Headers();
-
-
 var formdata = new FormData();
-formdata.append("bar_id", formData.bar_id);
+formdata.append("bar_id", barData.id);
 formdata.append("name", formData.name);
 formdata.append("image", formData.image);
 formdata.append("description", formData.description);
 formdata.append("is_active", formData.is_active ? '1' : '0');
 formdata.append("price", formData.price);
-formdata.append("rating", formData.rating);
 
 var requestOptions:any = {
   method: 'POST',
@@ -62,11 +67,11 @@ var requestOptions:any = {
 fetch(`${baseRoute}offers`, requestOptions)
   .then(response => response.json())
   .then((result) => {
-    alert(result.message)
+    toast.success(result.message)
     console.log(result)})
   .catch(error => console.log('error', error));
           };
-        
+       
         return (
             <div className="max-w-lg mx-auto ">
                 <button onClick={()=>setToggle(!toggle)}
@@ -78,7 +83,7 @@ fetch(`${baseRoute}offers`, requestOptions)
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-white">
-            Product Name
+            Offer Name
           </label>
           <input
             type="text"
@@ -142,20 +147,6 @@ fetch(`${baseRoute}offers`, requestOptions)
             required
           />
         </div>
-        <div>
-          <label htmlFor="rating" className="block text-white">
-            Rating
-          </label>
-          <input
-            type="number"
-            id="rating"
-            name="rating"
-            value={formData.rating}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg p-2"
-            required
-          />
-        </div>
         <div className=''>
           <label htmlFor="is_active" className="block text-white">
             Active
@@ -182,13 +173,33 @@ fetch(`${baseRoute}offers`, requestOptions)
     </div>
         )
     }
-    useEffect(() => {
-      let token = localStorage.getItem('token')
-      if(!token) redirect('/login')
-  }, [])
+  
+      useLayoutEffect(() => {
+        let token = localStorage.getItem('token')
+        let user:any = JSON.parse(localStorage.getItem('user') as any)
+        console.log(user,'getUser')
+        if(!token) redirect('/login')
+        if(user?.role_type =='3'||user?.role_type =='1')redirect('/login')
+        setUser({image:user.image,name:user.firstname,email:user.email})
+        var requestOptions:any = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        fetch(`${baseRoute}bar/${user.email}`, requestOptions)
+          .then(response => response.json())
+          .then((result) =>{
+            setBarData(result.data)
+            console.log(result)})
+          .catch(error => console.log('error', error));
+    }, [])
+    const handlerLogout =()=>{
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      router.push('/login')
+     }
   return (
     <div className='flex w-full '>
-    <div className="bg-[#212429] w-[17%] h-screen">
+    <div className="bg-[#212429] w-[17%] h-[60rem]">
         <div className="flex justify-center">
             <Image src={'/logo.png'} width={120} height={120} alt='' />
         </div>
@@ -209,17 +220,16 @@ fetch(`${baseRoute}offers`, requestOptions)
     </div>
     <div className="w-[83%] bg-black">
         <div className="flex w-full h-12 justify-end items-center gap-2 px-8">
-            <span className='h-8 flex justify-center items-center w-8 rounded-full bg-gray-500 text-3xl text-white'>A</span>
-            <h1 className='text-white'>Admin1_resto</h1>
-            <Image src={'/icons (2).png'} width={20} height={20} alt='' />
-            <Image src={'/icons (1).png'} width={20} height={20} alt='' />
+            <h1 className='text-white cursor-pointer' onClick={handlerLogout}>Logout</h1>
+            <h1 className='text-white'>{getUser?.firstname}</h1>
         </div>
       {toggle? <div className="w-[50%]">
        <Offers/>
        </div>:(
-        <SubComponent/>
+        <SubComponent />
        )}
     </div>
+    <ToastContainer/>
 </div>
   )
 }

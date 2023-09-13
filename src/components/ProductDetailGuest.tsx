@@ -49,16 +49,16 @@ useEffect(() => {
     return (
         <div className="w-[90%] mx-auto my-0">
             <div className="h-[50px] mt-8">
-            <button onClick={()=>setId('')} className='py-2 px-4 rounded-2xl text-white bg-black'>Back</button>
+            <button onClick={()=>setId('')} className='py-2 px-4 rounded-2xl '>Back</button>
             </div>
             <div className='flex gap-2 '>
                 <div className="relative h-[300px] w-[300px] rounded-lg ">
                     <Image src={data.image} className='rounded-lg' fill alt='' />
                 </div>
                 <div className="p-2  w-[70%] " >
-                    <h1 className='text-md font-semibold text-[25px] text-white'>{data.title}</h1>
+                    <h1 className='text-md font-semibold text-[25px] '>{data.title}</h1>
                     <span className='flex items-center gap-2 '>
-                        <Image src={'/start.png'} className='rounded-lg text-white' height={15} width={15} alt='' />
+                        <Image src={'/start.png'} className='rounded-lg ' height={15} width={15} alt='' />
                         <p className='text-[12px] text-[#4D7C1B]'>{data.rating} Excellent</p>
                         <p className=' text-[12px] text-[#585C5C] '>(500+)</p>
                     </span>
