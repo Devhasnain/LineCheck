@@ -18,7 +18,7 @@ const SubComponent=()=>{
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user') as any)
         setUserData(user)
-        async function fetchData() {
+         function fetchData() {
             setLoading(true)
             try {
                 fetch(`${baseRoute}bar/${user.email}`, requestOptions)

@@ -53,7 +53,7 @@ const ProductDetail = ({ id,setId }: any) => {
         } catch (error) {
             
         }
-        async function fetchData() {
+        function fetchData() {
             setLoading(true)
             try {
                 var myHeaders = new Headers();

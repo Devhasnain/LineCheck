@@ -1,4 +1,3 @@
-
 import HomeComponent from '../../components/HomeComponent'
 
 const page = () => {
